@@ -1,26 +1,68 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Menu } from "antd";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          {paths.map(path => {
+            return (
+              <Route exact path={path.path}>
+                <div>
+                  <Menu mode="horizontal" selectedKeys={[path.name]}>
+                    {paths.map(menuItem => {
+                      return (
+                        <Menu.Item key={menuItem.name}>
+                          <Link to={menuItem.path}>{menuItem.name}</Link>
+                        </Menu.Item>
+                      );
+                    })}
+                  </Menu>
+                  <path.component />
+                </div>
+              </Route>
+            );
+          })}
+        </Switch>
+      </div>
+    </Router>
   );
-}
+};
+const Home = () => (
+  <div>
+    <div>Home</div>
+  </div>
+);
+const About = () => (
+  <div>
+    <div>About</div>
+  </div>
+);
+const Users = () => (
+  <div>
+    <div>Users</div>
+  </div>
+);
+// Path
+const paths = [
+  {
+    path: "/",
+    name: "Home",
+    component: Home
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: About
+  },
+  {
+    path: "/users",
+    name: "Users",
+    component: Users
+  }
+];
 
 export default App;
