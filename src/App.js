@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { Menu } from "antd";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Plot from "./Components/Plot.js";
 
 const App = () => {
   return (
@@ -10,7 +11,7 @@ const App = () => {
         <Switch>
           {paths.map(path => {
             return (
-              <Route exact path={path.path}>
+              <Route exact key={path.path} path={path.path}>
                 <div>
                   <Menu mode="horizontal" selectedKeys={[path.name]}>
                     {paths.map(menuItem => {
@@ -33,7 +34,9 @@ const App = () => {
 };
 const Home = () => (
   <div>
-    <div>Home</div>
+    <div>
+      <Plot></Plot>
+    </div>
   </div>
 );
 const About = () => (
